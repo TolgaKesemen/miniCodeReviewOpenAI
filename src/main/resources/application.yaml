@@ -1,15 +1,12 @@
 server:
   port: 8080
-  servlet:
-    context-path: /api
 
 spring:
   application:
     name: miniCodeReviewOpenAI
 
 openai:
-#  api-key: ${OPENAI_API_KEY}
-  api-key: "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"
+  api-key: ${OPENAI_API_KEY}
   base-url: https://api.openai.com/v1
   model: gpt-4o-mini
   timeout-seconds: 30
