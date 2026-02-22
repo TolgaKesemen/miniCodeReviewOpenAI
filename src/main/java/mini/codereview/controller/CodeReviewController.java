@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mini.codereview.request.CodeReviewRequest;
 import mini.codereview.response.CodeReviewResponse;
-import mini.codereview.service.impl.CodeReviewService;
+import mini.codereview.service.CodeReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package mini.codereview.service.impl;
+package mini.codereview.service;
 
 import mini.codereview.response.CodeReviewResponse;
 

@@ -7,6 +7,7 @@ import mini.codereview.handler.exception.CoreReviewException;
 import mini.codereview.request.OpenAIRequest;
 import mini.codereview.response.CodeReviewResponse;
 import mini.codereview.response.OpenAIResponse;
+import mini.codereview.service.CodeReviewService;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
