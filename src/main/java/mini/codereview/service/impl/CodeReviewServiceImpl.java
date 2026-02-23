@@ -5,6 +5,7 @@ import mini.codereview.config.properties.OpenAIProperties;
 import mini.codereview.dto.Message;
 import mini.codereview.handler.exception.CoreReviewException;
 import mini.codereview.request.OpenAIRequest;
+import mini.codereview.response.CodeGenerationResponse;
 import mini.codereview.response.CodeReviewResponse;
 import mini.codereview.response.OpenAIResponse;
 import mini.codereview.service.CodeReviewService;
@@ -55,6 +56,37 @@ public class CodeReviewServiceImpl implements CodeReviewService {
         }
 
         return new CodeReviewResponse(response.getChoices().getFirst().getMessage().getContent());
+    }
+
+    public CodeGenerationResponse codeGeneration(String text) {
+        String prompt = """
+                You are a senior Java software engineer.
+                You also know Java frameworks like Spring Boot.
+                Create the appropriate Java 17 code with given requirements in explanation.
+                Do not add explanation for code. Just return code itself.
+                
+                Explanation:
+                %s
+                """.formatted(text);
+
+        OpenAIRequest request = new OpenAIRequest(properties.getModel(), List.of(new Message("user", prompt)), 0.2);
+
+        OpenAIResponse response = openAiRestClient.post()
+                .uri("/chat/completions")
+                .body(request)
+                .retrieve()
+                .onStatus(HttpStatusCode::isError,
+                        (req, res) -> {
+                            throw new CoreReviewException("OpenAI API error: " + res.getStatusCode());
+                        })
+                .body(OpenAIResponse.class);
+
+        if (response == null || response.getChoices() == null || response.getChoices().isEmpty()
+                || response.getChoices().getFirst().getMessage() == null) {
+            throw new CoreReviewException("OpenAI returned empty response");
+        }
+
+        return new CodeGenerationResponse(response.getChoices().getFirst().getMessage().getContent());
     }
 
 }
