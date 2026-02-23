@@ -5,11 +5,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import mini.codereview.request.CodeGenerationRequest;
 import mini.codereview.request.CodeReviewRequest;
-import mini.codereview.response.CodeGenerationResponse;
-import mini.codereview.response.CodeReviewResponse;
 import mini.codereview.service.CodeReviewService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,16 +19,16 @@ public class CodeReviewController {
 
     private final CodeReviewService codeReviewService;
 
-    @PostMapping("/review")
+    @PostMapping(value = "/review", produces = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "review", description = "review")
-    public ResponseEntity<CodeReviewResponse> review(@Valid @RequestBody CodeReviewRequest request) {
-        return new ResponseEntity<>(codeReviewService.review(request.getCode()), HttpStatus.OK);
+    public String review(@Valid @RequestBody CodeReviewRequest request) {
+        return codeReviewService.review(request.getCode()).getReview();
     }
 
-    @PostMapping("/codeGeneration")
+    @PostMapping(value = "/codeGeneration", produces = MediaType.TEXT_PLAIN_VALUE)
     @Operation(summary = "codeGeneration", description = "codeGeneration")
-    public ResponseEntity<CodeGenerationResponse> codeGeneration(@Valid @RequestBody CodeGenerationRequest request) {
-        return new ResponseEntity<>(codeReviewService.codeGeneration(request.getText()), HttpStatus.OK);
+    public String codeGeneration(@Valid @RequestBody CodeGenerationRequest request) {
+        return codeReviewService.codeGeneration(request.getText()).getCode();
     }
 
 }

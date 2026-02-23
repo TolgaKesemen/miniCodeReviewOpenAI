@@ -27,6 +27,8 @@ public class CodeReviewServiceImpl implements CodeReviewService {
                 You are a senior Java software engineer.
                 Review the following Java code.
                 Answer in Turkish.
+                Do not wrap response in markdown.
+                Do not use ``` or ```java.
                 Focus on:
                 - Clean code
                 - SOLID principles
@@ -64,6 +66,8 @@ public class CodeReviewServiceImpl implements CodeReviewService {
                 You also know Java frameworks like Spring Boot.
                 Create the appropriate Java 17 code with given requirements in explanation.
                 Do not add explanation for code. Just return code itself.
+                Do not wrap response in markdown.
+                Do not use ``` or ```java.
                 
                 Explanation:
                 %s
