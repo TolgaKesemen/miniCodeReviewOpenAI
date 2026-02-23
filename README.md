@@ -1,2 +1,2 @@
 # miniCodeReviewOpenAI
-Project for code review with OpenAI
+Project for code review and code generation with OpenAI
